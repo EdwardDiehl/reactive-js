@@ -20,7 +20,7 @@ class Observer implements IObserver {
     }
 
     public notify(msg:string):void {
-        this._listeners.forEach((listener: IListener) => listener.update(msg));
+        this._listeners.forEach((listener:IListener) => listener.update(msg));
     }
 }
 
