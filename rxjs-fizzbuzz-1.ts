@@ -5,30 +5,33 @@ import "rxjs/add/operator/delay"
 import "rxjs/add/operator/repeat"
 import "rxjs/add/operator/map"
 
+const fizz = 'Fizz';
+const buzz = 'Buzz';
+const fizzBuzz = 'FizzBuzz';
+
 let sequence:Observable<number> = Observable.range(1, 100)
     .delay(1000)
     .repeat();
 
-let sequenceFizz:Observable<string | number> = sequence.map(item => (item % 3 === 0) ? 'Fizz' : item);
-let sequenceBuzz:Observable<string | number> = sequence.map(item => (item % 5 === 0) ? 'Buzz' : item);
+let sequenceFizz:Observable<string | number> = sequence.map(item => (item % 3 === 0) ? fizz : item);
+let sequenceBuzz:Observable<string | number> = sequence.map(item => (item % 5 === 0) ? buzz : item);
 
-let sequenceFizzBuzz:Observable<string | number> = Observable.zip(sequenceFizz, sequenceBuzz).map((item:Array<any>) => {
-    let message:number | string = '';
-    let number:number | string;
+let sequenceFizzBuzz:Observable<string | number> = Observable.zip(sequenceFizz, sequenceBuzz)
+    .map((item:Array<any>) => {
+        // item is something like [79, 'Buzz'] or ['Fizz', 79] or ['Fizz', 'Buzz']
+        if (item[0] === fizz && item[1] !== buzz) {
+            return fizz;
+        }
 
-    // item is something like [79, 'Buzz']
-    if (item[1] === 'Buzz') {
-        message = item.splice(1, 1)[0];
-    }
+        if (item[0] !== fizz && item[1] === buzz) {
+            return buzz;
+        }
 
-    // item is something like ['Fizz', 79]
-    if (item[0] === 'Fizz') {
-        message = item.splice(0, 1)[0] + message;
-    }
+        if (item[0] === fizz && item[1] === buzz) {
+            return fizzBuzz;
+        }
 
-    number = item[0];
-
-    return (message || number);
-});
+        return item[0];
+    });
 
 sequenceFizzBuzz.subscribe((item) => console.log(item));
