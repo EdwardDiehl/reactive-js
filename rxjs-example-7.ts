@@ -2,7 +2,7 @@ import {Subject} from 'rxjs/Subject';
 
 import 'rxjs/add/operator/takeUntil';
 
-let subject:Subject<string> = new Subject();
+let subject:Subject<string | number> = new Subject();
 let stop:Subject<any> = new Subject();
 
 subject.takeUntil(stop).subscribe(
