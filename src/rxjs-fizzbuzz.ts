@@ -8,11 +8,11 @@ let sequence:Observable<string | number> = Observable.range(1, 100)
     .delay(1000)
     .repeat()
     .map((item: number) => {
-        let message:string = '';
-        
-        if (item % 3 === 0) message = 'Fizz';
-        if (item % 5 === 0) message += 'Buzz';
-        
+        let message:string = "";
+
+        if (item % 3 === 0) message = "Fizz";
+        if (item % 5 === 0) message += "Buzz";
+
         return(message || item);
     });
 

@@ -56,4 +56,4 @@ observer.add(listener_3);
 observer.remove(listener_1);
 observer.add(listener_4);
 
-observer.notify('RxJS + TS => Cool');
+observer.notify("RxJS + TS => Cool");
